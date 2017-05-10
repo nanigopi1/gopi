@@ -1,0 +1,105 @@
+<html><head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <title>retrieve</title>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+        
+        li {
+            float: left;
+        }
+        
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        li a:hover {
+            background-color: #111;
+        }
+    </style>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script></head>
+<body bgcolor="#FFFFFF">
+     <ul>
+        <li><a class="active" href="insert.html">Create</a></li>
+        </div>
+        <li><a href="retrieve.html">Retrieve</a></li>
+        <li><a href="update.html">update</a></li>
+        <li><a href="purchase.html">Purchase</a></li>
+        <li><a href="purchaseselected.html">Purchase Selected</a></li>
+    </ul><br><br><br><br><br><br><br><br>
+  
+    <br><br><br><br>
+    <div align="center"  ng-app="myApp" ng-controller="ctrl">
+        <div style="width:300px; border: solid 1px #333333; " align="left">
+            <div style="background-color:#333333; color:#FFFFFF; padding:3px;"><b>Create</b></div>
+
+            <div style="margin:30px">
+
+                <form>
+                    <label>Productid  &nbsp;&nbsp;&nbsp;:</label><input ng-model="productid" class="box" /><br /><br />
+                    <label>Productname  &nbsp;&nbsp;&nbsp;:</label><input ng-model="productname" class="box" /><br/><br />
+                    <label>Price  &nbsp;:</label><input ng-model="price" class="box" /><br /><br />
+                    <label>quantity &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</label><input ng-model="quantity" class="box" /><br/><br />
+                    <input type="button" value="OK" ng-click="myFunc()"/>
+                </form>
+                
+                
+                <p>{{ names }}</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+                          var app = angular.module('myApp', []); 
+                          app.controller('ctrl', function ($scope, $http) {
+                              $scope.myFunc = function() {
+                                  alert("Do you want to insert ?");
+                          var productid=$scope.productid;
+                          var productname=$scope.productname;
+                          var price=$scope.price;
+                          var quantity=$scope.quantity;
+                              var req = { 
+                                  method: 'POST',
+                                  url: 'http://localhost:3000/data', 
+                   headers: { 'Content-Type': 'Application/json' },
+                   data: {
+                          productid: productid, 
+                          productname: productname,
+                          price: price,
+                          quantity: quantity,
+                         }
+                              }
+                          
+                                  $http(req)
+                          .then(function (response) {
+                          $scope.names = response.data;
+                                      alert($scope.names);
+                         });
+                                  };
+                                  
+                  });
+        </script>
+
+<br><br><br><br><br><br>
+
+            </body>
+                </html>

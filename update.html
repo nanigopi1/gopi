@@ -1,0 +1,166 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <title>retrieve</title>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: grey;
+        }
+        
+        li {
+            float: left;
+        }
+        
+        li a {
+            display: block;
+            color: yellow;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        li a:hover {
+            background-color: red;
+        }
+    </style>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script></head>
+<body bgcolor="steelblue">
+     <ul>
+        <li><a class="active" href="insert.html">Create</a></li>
+        </div>
+        <li><a href="retrieve.html">Retrieve</a></li>
+        <li><a href="update.html">update</a></li>
+        <li><a href="puurchase.html">Purchase</a></li>
+        <li><a href="purchaseselected.html">Purchase Selected</a></li>
+    </ul><br><div ng-app="myApp" ng-controller="ctrl3">
+        <br><br><br><br>
+        <div align="center">
+            <div style="width:300px; border: solid 1px #555555; " align="left">
+                <div style="background-color:white; color:blue; padding:3px;"><b>retrieve</b></div>
+
+                <div style="margin:30px">
+
+                    <form >
+                        <label>productid  &nbsp;&nbsp;&nbsp;:</label><input ng-model="productid" class="box" /><br /><br />
+                        <input type="button" value="OK" ng-click="myFunc()" />
+                    </form>
+
+
+                </div>
+
+
+
+            </div>
+
+        </div><br><br><br><br><br>
+          <div align="center">
+        <div style="width:300px; border: solid 1px #765455; " align="left">
+            <div style="background-color:red; color:black; padding:3px;"><b>update</b></div>
+
+            <div style="margin:30px">
+
+    <label>productid  &nbsp;&nbsp;&nbsp;:</label><input ng-model="productid" class="box" /><br /><br />
+                    <label>productname  &nbsp;&nbsp;&nbsp;:</label><input ng-model="productname" class="box" /><br/><br />
+                    <label>price  &nbsp;:</label><input ng-model="price" class="box" /><br /><br />
+                    <label>quantity &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</label><input ng-model="quantity" class="box" /><br/><br />
+                    <input type="button" value="update" ng-click="myFunc1()" />
+                
+
+    </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('ctrl3', function($scope, $http) {
+             $scope.myFunc1 = function() {
+                alert("do you want to update?");
+                var productid = $scope.productid;
+                var productname = $scope.productname;
+                var price = $scope.price;
+                var quantity = $scope.quantity;
+                var req = {
+                    method: 'POST',
+                    url: 'http://localhost:3000/update',
+                    headers: {
+                        'Content-Type': 'Application/json'
+                    },
+                    data: {
+                        productid: productid,
+                        productname: productname,
+                        price: price,
+                        quantity: quantity,
+                    }
+                }
+
+                $http(req)
+                    .then(function(response) {
+                        $scope.na = response.data;
+                                      alert($scope.na);
+
+                    });
+            };
+           
+
+            $scope.myFunc = function() {
+                alert("do you want to retrieve?");
+                $scope.records = [{
+                    "productid": "productid",
+                    "productname": "productname",
+                    "price": "price",
+                    "quantity": "quantity",
+                }]
+                var productid = $scope.productid;
+                var req = {
+                    method: 'POST',
+                    url: 'http://localhost:3000/retrieve',
+                    headers: {
+                        'Content-Type': 'Application/json'
+                    },
+                    data: {
+                        productid: productid,
+                    }
+                }
+
+                $http(req)
+                    .then(function(response) {
+
+                        $scope.productid1 = response.data[0].productid;
+
+                        $scope.productname = response.data[0].productname;
+
+                        $scope.price = response.data[0].price;
+
+                        $scope.quantity = response.data[0].quantity;
+
+
+                        $scope.mob = response.data[0].mob;
+
+                        
+
+
+                    });
+            };
+
+        });
+
+    </script>
+
+ </body>
+</html>

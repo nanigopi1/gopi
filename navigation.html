@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <title>Insert</title>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+        
+        li {
+            float: left;
+        }
+        
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        li a:hover {
+            background-color: #111;
+        }
+    </style>
+
+
+</head>
+
+<body ng-app="myApp">
+    <ul>
+        <li><a class="active" href="#create">Create</a></li>
+        </div>
+        <li><a href="#retrieve">Retrieve</a></li>
+        <li><a href="#update">update</a></li>
+        <li><a href="#purchase">Purchase</a></li>
+    </ul><br><br><br><br>
+    <div ng-view></div>
+
+    <script>
+        var app = angular.module("myApp", ["ngRoute"]);
+        app.config(function($routeProvider) {
+            $routeProvider
+                .when("/create", {
+                    templateUrl: "acreate.html"
+                })
+                .when("/retrieve", {
+                    templateUrl: "retrieve.html"
+                })
+                .when("/update", {
+                    templateUrl: "aretrieve.html"
+                })
+                .when("/purchase", {
+                    templateUrl: "aentireret.html"
+                })
+            .otherwise("/create", {
+                    templateUrl: "amain.html"
+                });
+        });
+    </script>
+
+</body>
+</html>

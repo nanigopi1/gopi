@@ -1,0 +1,88 @@
+<html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<body bgcolor="#FFFFFF">
+    <br><br><br><br>
+    <div align="center" ng-app="myApp" ng-controller="ctrl2">
+        <div style="width:300px; border: solid 1px #333333; " align="left">
+            <div style="background-color:#333333; color:#FFFFFF; padding:3px;"><b>Update</b></div>
+
+            <div style="margin:30px">
+
+                <form>
+                    <label>productid  &nbsp;&nbsp;&nbsp;:</label><input ng-init="productid" class="box" /><br /><br />
+                    <label>productname  &nbsp;&nbsp;&nbsp;:</label><input ng-init="productname" class="box" /><br/><br />
+                    <label>price  &nbsp;:</label><input ng-init="price" class="box" /><br /><br />
+                    <label>quantity &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</label><input ng-init="quantity" class="box" /><br/><br />
+                    <input type="button" value="get" ng-click="myFunc()" />
+                    <input type="button" value="update" ng-click="myFunc1()" />
+                </form>
+
+
+                <p>{{ names }}</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('ctrl2', function($scope, $http) {
+            $scope.myFunc1 = function() {
+                alert("do you want to update?");
+                var productid = $scope.productid;
+                var productname = $scope.productname;
+                var quantity = $scope.quantity;
+                var price = $scope.price;
+                var req = {
+                    method: 'POST',
+                    url: 'http://localhost:3000/update',
+                    headers: {
+                        'Content-Type': 'Application/json'
+                    },
+                    data: {
+                        productid: productid,
+                        productname: productname,
+                        quantity: quantity,
+                        price: price,
+        
+                    }
+                }
+
+                $http(req)
+                    .then(function(response) {
+                        $scope.names = response.data;
+                    });
+            };
+            $scope.myFunc = function() {
+                alert("do you want to get details?");
+                var productid = $scope.productid;
+                var req = {
+                    method: 'POST',
+                    url: 'http://localhost:3000/retrieve',
+                    headers: {
+                        'Content-Type': 'Application/json'
+                    },
+                    data: {
+                        productid: $scope.productid
+                    }
+                }
+
+                $http(req)
+                    .then(function(response) {
+                    
+                        $scope.productid = response;
+                console.log($scope.productid);    
+                });
+            };
+
+        });
+
+    </script>
+
+</body>
+
+</html>
